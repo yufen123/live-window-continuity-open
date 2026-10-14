@@ -1,0 +1,40 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "live-window-continuity",
+  "version": "0.1.4-rc.1",
+  "description": "Carry selected non-sensitive context across chat windows with role-aware status footers, a copy-paste handoff card, and verified portable archives.",
+  "author": {
+    "name": "Yufen Li"
+  },
+  "keywords": [
+    "window-continuity",
+    "handoff",
+    "status-footer",
+    "context-recovery",
+    "portable-archive"
+  ],
+  "skills": "./skills/",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Live Window Continuity",
+        "shortDescription": "Continue safely across chats",
+        "longDescription": "Create clear status footers, no-setup copy-paste handoff cards, and verified plaintext continuity archives for selected non-sensitive context. The plugin preserves user authority, exposes saved cutoffs, and stops on stale, missing, or conflicting state. It does not automatically remember chats or provide hosted storage.",
+        "developerName": "Yufen Li",
+        "category": "Productivity",
+        "capabilities": [
+          "Render role-aware status footers",
+          "Create copy-paste handoff cards",
+          "Create and verify plaintext continuity archives"
+        ],
+        "defaultPrompt": [
+          "Add a role-aware footer that shows this chat's current state, gate, and next stop.",
+          "Make a short copy-paste handoff card so I can continue this work in a new chat.",
+          "Create a verified plaintext archive for this fictional project and report the saved cutoff."
+        ],
+        "brandColor": "#3C5CD8"
+      }
+    }
+  },
+  "license": "MIT"
+}

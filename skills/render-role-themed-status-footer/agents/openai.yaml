@@ -1,0 +1,12 @@
+interface:
+  display_name: Role-Themed Status Footer
+  short_description: Adapt status footers to any active role
+  default_prompt: Use $render-role-themed-status-footer to add a clear role-themed
+    status footer to this response.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

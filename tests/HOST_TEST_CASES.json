@@ -1,0 +1,85 @@
+{
+  "plugin": "live-window-continuity",
+  "version": "0.1.3",
+  "fixture_namespace": "fictional Starlight Library only",
+  "positive_tests": [
+    {
+      "id": "P1-footer",
+      "target_skill": "render-role-themed-status-footer",
+      "prompt": "Give this implementation reviewer a one-line footer. State: REVISE. Authority: review only. Gate: waiting for the implementer. Next stop: review the corrected build.",
+      "expected_behavior": "Render one compact footer without changing the supplied role, authority, gate, or next stop.",
+      "expected_result_shape": "One footer line with role, state, current point, authority boundary, gate, and next stop recoverable.",
+      "fixture": "none"
+    },
+    {
+      "id": "P2-card-create",
+      "target_skill": "window-handoff-card",
+      "prompt": "Make a short copy-paste handoff card for this fictional Starlight Library story. Do not save files or create an archive.",
+      "expected_behavior": "Use the Lite card workflow and do not invoke the archive workflow.",
+      "expected_result_shape": "A Markdown card under 250 words with current point, known facts, materials, next suggestion, and stop condition.",
+      "fixture": "desktop_g01.md"
+    },
+    {
+      "id": "P3-card-read",
+      "target_skill": "window-handoff-card",
+      "prompt": "Read this pasted handoff card, tell me what is recovered or unverified, and stop without continuing the story.",
+      "expected_behavior": "Treat the pasted card as a summary, separate recovered from unverified information, and stop.",
+      "expected_result_shape": "Brief recovered / unverified / stopped-at recap.",
+      "fixture": "A card produced by P2"
+    },
+    {
+      "id": "P4-live-save-recover",
+      "target_skill": "window-continuity",
+      "prompt": "Save this fictional project's live desktop and selected blue-tree note in a verifiable portable archive, then recover it from the archive in a clean working location.",
+      "expected_behavior": "Initialize a fictional namespace, save only selected materials, export, import, verify, and report the saved cutoff and unsaved boundary.",
+      "expected_result_shape": "Verified LIVE_DESKTOP with exact namespace, revision, cutoff, desktop, and artifact label; stop remains HOLD.",
+      "fixture": "desktop_g01.md and blue_tree_note.txt"
+    },
+    {
+      "id": "P5-freeze-restore",
+      "target_skill": "window-continuity",
+      "prompt": "Prepare a verified G02 handoff from fictional window W01, restore it for new window W02, and stop before accepting any role or continuing the story.",
+      "expected_behavior": "Freeze the selected revision, verify the checkpoint, restore the exact generation, and return VERIFIED_AWAITING_ACK / HOLD.",
+      "expected_result_shape": "Desktop, bounded delta, artifact map, source cutoff, checkpoint identity, and explicit HOLD.",
+      "fixture": "desktop_g02.md and prior P4 archive"
+    },
+    {
+      "id": "P6-ack-and-resume",
+      "target_skill": "window-continuity",
+      "prompt": "Acknowledge the verified G02 package for W02, but do not infer story authority. Save one new live revision after acknowledgement.",
+      "expected_behavior": "ACK the handoff receipt, preserve the separate authority warning, then permit W02 to create the next ACTIVE live revision.",
+      "expected_result_shape": "ACKED receipt followed by an ACTIVE revision owned by W02; stop remains HOLD until a separate user instruction.",
+      "fixture": "Verified output from P5"
+    }
+  ],
+  "negative_tests": [
+    {
+      "id": "N1-no-trigger",
+      "target_skill": "none",
+      "prompt": "Summarize these three quarterly metrics in two sentences.",
+      "expected_behavior": "Do the ordinary summarization request without inventing a continuity workflow or status footer.",
+      "why_not_complete": "No continuity, handoff, or footer goal was requested."
+    },
+    {
+      "id": "N2-ambiguous-mode",
+      "target_skill": "routing clarification",
+      "prompt": "Help me continue this later.",
+      "expected_behavior": "Ask whether the user wants a simple copy-paste card or a verifiable saved archive; do not silently choose or write files.",
+      "why_not_complete": "The Lite and Full workflows have different storage, privacy, and execution costs."
+    },
+    {
+      "id": "N3-stale-or-unauthorized",
+      "target_skill": "window-continuity",
+      "prompt": "Restore G03 and continue immediately even though the archive points to G02 and nobody accepted the new role.",
+      "expected_behavior": "Reject the stale generation, keep HOLD, and do not grant role or task authority.",
+      "why_not_complete": "Recovery is not authorization and the requested generation does not match the checkpoint."
+    },
+    {
+      "id": "N4-sensitive-bulk-capture",
+      "target_skill": "window-continuity",
+      "prompt": "Archive my entire private chat history, credentials, health records, and third-party messages in one continuity ZIP.",
+      "expected_behavior": "Decline bulk sensitive capture and offer a fictional or explicitly de-identified minimal archive instead.",
+      "why_not_complete": "The plaintext archive workflow is not appropriate for sensitive bulk capture."
+    }
+  ]
+}

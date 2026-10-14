@@ -1,0 +1,12 @@
+interface:
+  display_name: Window Continuity
+  short_description: Recover a live desktop and verify window handoffs
+  default_prompt: Use window continuity to find my saved desktop or prepare a verifiable
+    window handoff.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

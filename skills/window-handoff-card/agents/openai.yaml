@@ -1,0 +1,11 @@
+interface:
+  display_name: 续窗卡 · Lite
+  short_description: 生成和读取简短的窗口交接卡，让新窗口接续已确认的工作状态
+  default_prompt: 用 $window-handoff-card 帮我做一张下一窗口能读懂的交接卡。
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
